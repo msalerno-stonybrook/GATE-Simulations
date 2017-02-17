@@ -1,0 +1,282 @@
+/vis/open OGLSQt
+/vis/viewer/reset
+/vis/viewer/set/viewpointThetaPhi 60 60
+/vis/viewer/zoom 1
+/vis/viewer/set/style surface
+/vis/drawVolume
+/tracking/storeTrajectory 1
+/vis/scene/endOfEventAction accumulate
+/vis/viewer/update
+
+/gate/geometry/setMaterialDatabase /opt/local/share/gate/GateMaterials.db
+/gate/world/geometry/setXLength 100. cm
+/gate/world/geometry/setYLength 100. cm
+/gate/world/geometry/setZLength 100. cm
+
+#SYSTEM
+/gate/world/daughters/name cylindricalPET
+/gate/world/daughters/insert cylinder
+/gate/cylindricalPET/setMaterial Water
+/gate/cylindricalPET/placement/setTranslation 0.0 0.0 0.0 mm
+#/gate/cylindricalPET/placement/alignToY
+/gate/cylindricalPET/geometry/setRmax 350 mm
+/gate/cylindricalPET/geometry/setRmin 328 mm
+/gate/cylindricalPET/geometry/setHeight 260 mm
+/gate/cylindricalPET/vis/forceWireframe
+
+#     FIRST LEVEL OF THE SYSTEM
+/gate/cylindricalPET/daughters/name rsector
+/gate/cylindricalPET/daughters/insert box
+/gate/rsector/placement/setTranslation 339 0 0 mm
+/gate/rsector/geometry/setXLength 20 mm
+/gate/rsector/geometry/setYLength 32 mm
+/gate/rsector/geometry/setZLength 260 mm
+/gate/rsector/setMaterial Air
+#/gate/rsector/vis/setColor yellow
+/gate/rsector/vis/setVisible  0
+
+
+#     SECOND LEVEL OF THE SYSTEM
+/gate/rsector/daughters/name module
+/gate/rsector/daughters/insert box
+/gate/module/placement/setTranslation 0 0 0 mm
+/gate/module/geometry/setXLength 20 mm
+/gate/module/geometry/setYLength 32 mm
+/gate/module/geometry/setZLength 32 mm
+/gate/module/setMaterial Air
+#/gate/module/vis/setColor yellow
+/gate/module/vis/setVisible  0
+
+
+#     THIRD LEVEL OF THE SYSTEM
+/gate/module/daughters/name crystal
+/gate/module/daughters/insert box
+#/gate/crystal/placement/setTranslation 0 0 0 mm
+/gate/crystal/geometry/setXLength 20 mm
+/gate/crystal/geometry/setYLength 3.9 mm
+/gate/crystal/geometry/setZLength 3.9 mm
+/gate/crystal/setMaterial Air
+/gate/crystal/vis/setVisible  0
+
+#      Layer
+/gate/crystal/daughters/name LSO
+/gate/crystal/daughters/insert box
+/gate/LSO/placement/setTranslation 0 0 0 mm
+/gate/LSO/geometry/setXLength 20 mm
+/gate/LSO/geometry/setYLength 3.9 mm
+/gate/LSO/geometry/setZLength 3.9 mm
+/gate/LSO/setMaterial LSO
+/gate/module/vis/setColor red
+
+#      R E P E A T    C R Y S T A L
+/gate/crystal/repeaters/insert cubicArray
+/gate/crystal/cubicArray/setRepeatNumberX 1
+/gate/crystal/cubicArray/setRepeatNumberY 8
+/gate/crystal/cubicArray/setRepeatNumberZ 8
+/gate/crystal/cubicArray/setRepeatVector 0.0 4 4 mm
+
+#       R E P E A T    M O D U L E
+/gate/module/repeaters/insert linear
+/gate/module/linear/setRepeatNumber 8
+/gate/module/linear/setRepeatVector 0. 0. 32.3 mm
+
+#	R E P E A T    R S E C T O R 
+/gate/rsector/repeaters/insert ring
+/gate/rsector/ring/setRepeatNumber 56
+
+
+
+#	A T T A C H    S Y S T E M 
+/gate/systems/cylindricalPET/rsector/attach rsector
+/gate/systems/cylindricalPET/module/attach module
+/gate/systems/cylindricalPET/crystal/attach crystal
+/gate/systems/cylindricalPET/layer0/attach LSO
+
+#      PHANTOM
+#/gate/world/daughters/name NEMACubic
+#/gate/world/daughters/insert box
+#/gate/NEMACubic/setMaterial Acrylic
+#/gate/NEMACubic/placement/setTranslation 0. 0. 0. mm
+#/gate/NEMACubic/geometry/setXLength 10. mm
+#/gate/NEMACubic/geometry/setYLength 10. mm
+#/gate/NEMACubic/geometry/setZLength 10. mm
+#/gate/NEMACubic/vis/forceSolid
+#/gate/NEMACubic/vis/setColor white
+
+
+#	A T T A C H    C R Y S T A L  SD
+/gate/LSO/attachCrystalSD
+#/gate/NEMACubic/attachPhantomSD
+/vis/viewer/zoom 2
+
+#/control/execute derenzo_geom.mac
+
+#       P H Y S I C S
+#
+/gate/physics/addProcess PhotoElectric
+/gate/physics/processes/PhotoElectric/setModel StandardModel
+
+/gate/physics/addProcess Compton
+/gate/physics/processes/Compton/setModel StandardModel
+
+/gate/physics/addProcess RayleighScattering 
+/gate/physics/processes/RayleighScattering/setModel LivermoreModel
+
+/gate/physics/addProcess ElectronIonisation
+/gate/physics/processes/ElectronIonisation/setModel StandardModel e-
+/gate/physics/processes/ElectronIonisation/setModel StandardModel e+
+
+/gate/physics/addProcess Bremsstrahlung
+/gate/physics/processes/Bremsstrahlung/setModel StandardModel e-
+/gate/physics/processes/Bremsstrahlung/setModel StandardModel e+
+
+/gate/physics/addProcess PositronAnnihilation
+
+/gate/physics/addProcess eMultipleScattering
+/gate/physics/processes/eMultipleScattering/setGeometricalStepLimiterType e- distanceToBoundary
+/gate/physics/processes/eMultipleScattering/setGeometricalStepLimiterType e+ distanceToBoundary
+
+/gate/physics/addProcess RadioactiveDecay
+
+/gate/physics/processList Enabled
+/gate/physics/processList Initialized
+
+
+# Cuts for particle in NEMACylinder
+#/gate/physics/Gamma/SetCutInRegion      LSO 1.0 mm
+#/gate/physics/Electron/SetCutInRegion   LSO 1.0 mm
+#/gate/physics/Positron/SetCutInRegion   LSO 1.0 mm
+
+
+# INITIALIZE
+/gate/run/initialize
+
+
+
+#       DIGITIZER
+/gate/digitizer/Singles/insert adder 
+/gate/digitizer/Singles/insert readout
+/gate/digitizer/Singles/readout/setDepth 2
+
+#	TEMPORAL RESOLUTION
+/gate/digitizer/Singles/insert timeResolution
+/gate/digitizer/Singles/timeResolution/setTimeResolution 5.9 ns
+
+ 
+# ENERGY BLURRING
+/gate/digitizer/Singles/insert blurring
+/gate/digitizer/Singles/blurring/setResolution 0.14
+/gate/digitizer/Singles/blurring/setEnergyOfReference 511. keV 
+
+
+
+# ENERGY WINDOW
+/gate/digitizer/Singles/insert thresholder
+/gate/digitizer/Singles/thresholder/setThreshold 430. keV
+/gate/digitizer/Singles/insert upholder
+/gate/digitizer/Singles/upholder/setUphold 610. keV 
+
+# DEAD TIME
+/gate/digitizer/Singles/insert deadtime
+/gate/digitizer/Singles/deadtime/setDeadTime 1000. ns
+/gate/digitizer/Singles/deadtime/setMode nonparalysable
+/gate/digitizer/Singles/deadtime/chooseDTVolume module
+
+#	C O I N C I D E N C E S O R T E R
+/gate/digitizer/Coincidences/setWindow 12. ns 
+/gate/digitizer/Coincidences/setOffset 0. ns
+/gate/digitizer/Coincidences/setDepth 2
+#/gate/digitizer/Coincidences/describe
+/gate/digitizer/Coincidences/MultiplesPolicy killAll
+
+/gate/digitizer/name delay
+/gate/digitizer/insert coincidenceSorter
+/gate/digitizer/delay/setWindow 20. ns
+/gate/digitizer/delay/setOffset 500. ns
+
+
+#/gate/source/addSource Na22PointSource
+#/gate/source/Na22PointSource/setActivity 100000. becquerel
+#/gate/source/Na22PointSource/gps/particle e+
+#/gate/source/Na22PointSource/setForcedUnstableFlag true
+#/gate/source/Na22PointSource/setForcedHalfLife 82078747.2 s
+#/gate/source/Na22PointSource/gps/energytype Mono
+#/gate/source/Na22PointSource/gps/type Volume
+#/gate/source/Na22PointSource/gps/shape Sphere
+#/gate/source/Na22PointSource/gps/radius .3 mm
+#/gate/source/Na22PointSource/gps/angtype iso
+#/gate/source/Na22PointSource/gps/centre 0. 0. 0. mm
+#/gate/source/Na22PointSource/gps/mintheta 0. deg 
+#/gate/source/Na22PointSource/gps/maxtheta 180. deg 
+#/gate/source/Na22PointSource/gps/minphi 0. deg 
+#/gate/source/Na22PointSource/gps/maxphi 360. deg
+
+
+#/gate/source/addSource twogamma
+#/gate/source/twogamma/setActivity 74000. becquerel
+#/gate/source/twogamma/setType backtoback
+#/gate/source/twogamma/gps/particle gamma
+#/gate/source/twogamma/gps/energytype Mono
+#/gate/source/twogamma/gps/monoenergy 0.511 MeV
+#/gate/source/twogamma/gps/type Point
+#/gate/source/twogamma/gps/centre 0. 0. 0. mm
+#/gate/source/twogamma/gps/angtype iso
+#/gate/source/twogamma/gps/mintheta 0. deg
+#/gate/source/twogamma/gps/maxtheta 180. deg
+#/gate/source/twogamma/gps/minphi 0. deg
+#/gate/source/twogamma/gps/maxphi 360. deg
+
+# line source
+/gate/source/addSource linesource
+/gate/source/linesource/setActivity 100000. becquerel
+/gate/source/linesource/setType backtoback
+/gate/source/linesource/gps/particle gamma
+/gate/source/linesource/gps/energytype Mono
+/gate/source/linesource/gps/monoenergy 0.511 MeV
+/gate/source/linesource/gps/angtype iso 
+/gate/source/linesource/gps/mintheta 0. deg 
+/gate/source/linesource/gps/maxtheta 180. deg 
+/gate/source/linesource/gps/minphi 0. deg 
+/gate/source/linesource/gps/maxphi 360. deg 
+/gate/source/linesource/gps/type Volume 
+/gate/source/linesource/gps/shape Cylinder 
+/gate/source/linesource/gps/radius 100. mm 
+/gate/source/linesource/gps/halfz 200. mm 
+/gate/source/linesource/visualize 5000 red 3
+
+#O U T P U T
+#ASCII
+#/gate/output/ascii/disable
+#/gate/output/ascii/setOutFileHitsFlag 0
+#/gate/output/ascii/setOutFileSinglesFlag 0
+#/gate/output/ascii/setOutFileCoincidencesFlag 0
+#
+#ROOT
+/gate/output/root/enable
+/gate/output/root/setFileName root_output_linesource
+/gate/output/root/setRootNtupleFlag 1
+/gate/output/root/setRootHitFlag 0
+/gate/output/root/setRootSinglesFlag 1
+/gate/output/root/setRootCoincidencesFlag 1
+/gate/output/root/setSaveRndmFlag 1
+#LMF
+#/gate/output/lmf/disable
+#
+
+#   R A N D O M
+# JamesRandom Ranlux64 MersenneTwister
+/gate/random/setEngineName JamesRandom
+#/gate/random/setEngineSeed default
+/gate/random/setEngineSeed auto
+#/gate/random/setEngineSeed 123456789
+#/gate/random/resetEngineFrom fileName
+/gate/random/verbose 1
+
+#S T A R T
+/gate/application/setTimeSlice 5. s
+/gate/application/setTimeStart 0. s
+/gate/application/setTimeStop 5. s
+/gate/application/startDAQ
+
+exit
+
