@@ -1,0 +1,43 @@
+# DEFINE A READOUT ON THE BLOCK
+#------------------------------------------------------------------------------------------------
+/gate/digitizer/Singles/insert                        		adder
+/gate/digitizer/Singles/insert                        		readout
+/gate/digitizer/Singles/readout/setDepth              		3
+#------------------------------------------------------------------------------------------------
+# ENERGY BLURRING
+#------------------------------------------------------------------------------------------------
+/gate/digitizer/Singles/insert 					blurring
+/gate/digitizer/Singles/blurring/setResolution 			0.15
+/gate/digitizer/Singles/blurring/setEnergyOfReference 		511. keV 
+#------------------------------------------------------------------------------------------------
+#	TEMPORAL RESOLUTION
+#------------------------------------------------------------------------------------------------
+/gate/digitizer/Singles/insert 					timeResolution
+/gate/digitizer/Singles/timeResolution/setTimeResolution 	6.7 ns
+#------------------------------------------------------------------------------------------------
+# ENERGY WINDOW
+#------------------------------------------------------------------------------------------------
+/gate/digitizer/Singles/insert 					thresholder
+/gate/digitizer/Singles/thresholder/setThreshold 		250. keV
+/gate/digitizer/Singles/insert 					upholder
+/gate/digitizer/Singles/upholder/setUphold 			750. keV 
+#------------------------------------------------------------------------------------------------
+# DEAD TIME
+#------------------------------------------------------------------------------------------------
+/gate/digitizer/Singles/insert 					deadtime
+/gate/digitizer/Singles/deadtime/setDeadTime 			40. ns
+/gate/digitizer/Singles/deadtime/setMode 			nonparalysable
+/gate/digitizer/Singles/deadtime/chooseDTVolume 		module
+#=====================================================
+#	C O I N C I D E N C E    S O R T E R
+#===================================================== 
+/gate/digitizer/Coincidences/setWindow 				10. ns 
+/gate/digitizer/Coincidences/setOffset 				0. ns
+/gate/digitizer/Coincidences/setDepth 				2
+#/gate/digitizer/Coincidences/describe
+/gate/digitizer/Coincidences/MultiplesPolicy 			killAll
+
+/gate/digitizer/name 						delay
+/gate/digitizer/insert 						coincidenceSorter
+/gate/digitizer/delay/setWindow 				20. ns
+/gate/digitizer/delay/setOffset 				500. ns

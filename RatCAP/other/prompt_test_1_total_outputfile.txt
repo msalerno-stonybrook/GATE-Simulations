@@ -1,0 +1,60 @@
+REPORT
+
+Prompt Sinogram
+Plastic RatCAP
+
+Name of sinogram file: /data/ratcap/PR_02_02_2017//prompt_test_1_total.scn
+Name of evt file: /data/ratcap/PR_02_02_2017/test_1.evt
+
+Static
+
+Coincidence Processor Start Time: Thu Feb  2 11:26:04 EST 2017
+Coincidence Processor Write Time: Thu Feb  2 11:26:05 EST 2017
+
+Scan Start Time: Thu Feb  2 11:23:34 2017
+Scan End Time: Thu Feb  2 11:24:35 2017
+
+Which ring?: 0
+
+Sinoindex: /home/ratcap/third_generation/sysfiles/RC/jack_sinoindex.txt
+tzero correction?: No
+
+Time window: 10 ticks, 20 ns, 2*tau = 40
+Delay: 1000 ticks, 2000 ns
+
+Total Values: 
+
+  Total Events: 8162
+  Total Packets: 8062
+  Dropped Packets: 0
+
+  Elapsed time (DAQ): 61
+  Elapsed time (data): 60.1068
+  Livetime: 59.1584
+  Deadtime: 1.57782%
+
+  Singles: 1015812
+  Prompts: 38607
+  Delays: 323
+  Trues: 38284
+
+Checked data integrity?: No
+
+Skip Events?: Yes
+  How Many?: 100
+  First daq time of data set: 1486052614
+  First daq time of coinc proc: 1486052614
+
+Gating?: No
+
+Saving time difference data in root file?: No
+
+Saving coincidence pair time difference data in bin file?: No
+
+Dead Channels: 2
+
+1 minutes: 17810 cps, at Event 8117
+Back-end Estimated Deadtime: 1.57744%
+663.292 603.523 58.8264 0
+
+

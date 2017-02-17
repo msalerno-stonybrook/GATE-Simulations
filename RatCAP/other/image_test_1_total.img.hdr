@@ -1,0 +1,616 @@
+# Decay Correction Applied. Ignore future statements regarding decay.
+# Deadtime Correction Applied. Ignore future statements regarding deadtime.
+# Gating NOT applied. Ignore future statements regarding gating.
+#
+# (REAL) Header file for data file /data/ratcap/PR_02_02_2017//image_test_1_total.img
+#    with 1 frames.
+#
+#
+# Version of header parameters (float)
+#
+version 001.450
+#
+# Scanner model number (integer)
+#
+model 2001
+#
+# Institution identification (string)
+#
+institution Brookhaven National Laboratory
+#
+# Study type/description (string)
+#
+study
+#
+# Data filename, possibly includeing path (string)
+#    NOTE: Filename may contain spaces, therefore the ENTIRE
+#          line, up to the EOL, is used after the parameter name.
+#
+file_name /data/ratcap/PR_02_02_2017//image_test_1_total.img
+#
+# Data file type (integer)
+#   0 - Unknown data file type
+#   1 - List mode data file
+#   2 - Sinogram data file
+#   3 - Normalization data file
+#   4 - Attenuation correction data file
+#   5 - Image data file
+#   6 - Blank data file
+#   8 - Mu map data file
+#   9 - Scatter correction data file
+#
+file_type 5
+#
+# Acquisition mode (integer)
+#   0 - Unknown acquisition mode
+#   1 - Blank acquisition
+#   2 - Emission acquisition
+#   3 - Dynamic acquisition
+#   4 - Gated acquisition
+#   5 - Continuous bed motion acquisition
+#   6 - Singles transmission acquisition
+#   7 - Windowed coincidence transmission acquisition
+#   8 - Non-windowed coincidence transmission acquisition
+#
+acquisition_mode 2
+#
+# (REAL) Number of frames in data file (integer)
+#
+total_frames 1
+#
+# (REAL) Isotope description (string)
+#
+isotope F-18
+#
+# (REAL) Isotope half-life, in secs (float)
+#
+isotope_half_life 6586.2
+#
+# Isotope branching fraction (float)
+#   NOTE: Frame scale factor DOES NOT include
+#         isotope branching fraction.
+#
+isotope_branching_fraction 1.0
+#
+# (REAL) Transaxial crystals per block (integer)
+#
+transaxial_crystals_per_block 4
+#
+# (REAL) Axial crystals per block (integer)
+#
+axial_crystals_per_block 8
+#
+# Crystal offset for intrinsic rotation (integer)
+#
+intrinsic_crystal_offset 4
+#
+# (REAL) Number of transaxial blocks (integer)
+#
+transaxial_blocks 12
+#
+# (REAL) Number of axial blocks (integer)
+#
+axial_blocks 1
+#
+# Transaxial crystal pitch, in cm (float)
+#
+transaxial_crystal_pitch 0.2298
+#
+# (REAL) Axial crystal pitch, in cm (float)
+#
+axial_crystal_pitch 0.21532
+#
+# (REAL) Axial plane size, in cm (float)
+#
+axial_plane_size 0.10766
+#
+# (REAL) Ring radius to crystal face, in cm (float)
+#
+radius 2.13868
+#
+# (REAL) Radial field-of-view, in cm (float)
+#
+radial_fov 6.3
+#
+# Point source radius, in cm (float)
+#
+pt_src_radius 6.223
+#
+# Point source encoder steps per revolution (integer)
+#
+pt_src_steps_per_rev 4096
+#
+# Default number of projections (integer)
+#
+default_projections 84
+#
+# Default number of transaxial angles (integer)
+#
+default_transaxial_angles 96
+#
+# (REAL) Crystal thickness, in cm (float)
+#
+crystal_thickness 0.8
+#
+# Depth of interaction, in cm (float)
+#
+depth_of_interaction 0.4584
+#
+# Lower level energy threshold, in KeV (float)
+#
+lld 250
+#
+# Upper level energy threshold, in KeV (float)
+#
+uld 750
+#
+# (REAL) Coincidence timing window, in nsecs (int)
+#
+timing_window 10
+#
+# Data type (integer)
+#   0 - Unknown data type
+#   1 - Byte (8-bits) data type
+#   2 - 2-byte integer - Vax/Intel style
+#   3 - 4-byte integer - Vax/Intel style
+#   4 - 4-byte float - Vax/Intel style
+#   5 - 4-byte float - IEEE/Sun style
+#   6 - 2-byte integer - Sun style
+#   7 - 4-byte integer - Sun style
+#
+data_type 4
+#
+# Data order (integer)
+#   0 - Element/Axis/View/Ring_Diff - view mode
+#   1 - Element/View/Axis/Ring_Diff - sinogram mode
+#  NOTE that ElVwAxRd (XYZW) is the data order for images.
+#    ElVwAxRd for images means that Z and Y are flipped.
+#
+data_order 1
+#
+# Span of data set (integer)
+#
+span 3
+#
+# Maximum ring difference of data set (integer)
+#
+ring_difference 31
+#
+# (REAL) Number of dimensions in data set (integer)
+#     Order from fastest to slowest is XYZW
+#
+number_of_dimensions 3
+#
+# (REAL) Size of X dimension in data set (integer)
+#
+x_dimension 35
+#
+# (REAL) Size of Y dimension in data set (integer)
+#
+y_dimension 35
+#
+# (REAL) Size of Z dimension in data set (integer)
+#
+z_dimension 19
+#
+# Size of W dimension in data set (integer)
+#
+w_dimension 1
+#
+# X filter and/or apodizing windows type (integer)
+#       and cutoff (float)
+#   0 - No filter
+#   1 - Ramp filter (backprojection) or no filter
+#   2 - First-order Butterworth window
+#   3 - Hanning window
+#   4 - Hamming window
+#   5 - Parzen window
+#   6 - Shepp filter
+#   7 - Second-order Butterworth window
+#   NOTE that a cutoff of 0.5 is the Nyquist point
+#     i.e 1.0 / (2.0 * sampling).
+#     Also, the Ramp and Shepp should ONLY be used
+#     for backprojection
+#
+x_filter 1 0.5
+#
+# Y apodizing filter type (integer) and cutoff (float)
+#   0 - No filter
+#   2 - First-order Butterworth window
+#   3 - Hanning window
+#   4 - Hamming window
+#   5 - Parzen window
+#   7 - Second-order Butterworth window
+#   NOTE that a cutoff of 0.5 is the Nyquist point
+#     i.e 1.0 / (2.0 * sampling).
+#
+y_filter 0 0.5
+#
+# Z apodizing filter type (integer) and cutoff (float)
+#   0 - No filter
+#   2 - First-order Butterworth window
+#   3 - Hanning window
+#   4 - Hamming window
+#   5 - Parzen window
+#   7 - Second-order Butterworth window
+#   NOTE that a cutoff of 0.5 is the Nyquist point
+#     i.e 1.0 / (2.0 * sampling).
+#
+z_filter 0 0.5
+#
+# Version of histogram program used (float)
+#
+histogram_version 002.010
+#
+# Rebinning type (integer)
+#   0 - Unknown, or no, algorithm type
+#   1 - Full 3D binning (span and ring difference)
+#   2 - Single-Slice Rebinning
+#   3 - Fourier Rebinning
+#
+rebinning_type 3
+#
+# Version of rebinning program used (float)
+#
+rebinning_version 001.400
+#
+# Reconstruction type (integer)
+#   0 - Unknown, or no, algorithm type
+#   1 - Filtered Backprojection
+#   2 - OSEM2d
+#
+recon_algorithm 1
+#
+# Version of reconstruction program used (float)
+#
+recon_version 001.400
+#
+# Deadtime correction applied to data set (integer)
+#   0 - No deadtime correction applied
+#   1 - Global estimate based on singles
+#   2 - CMS estimate based on singles
+#
+deadtime_correction_applied 0
+#
+# Decay correction applied to data set (integer)
+#     0 (FALSE) - Decay correction has NOT been applied
+#     !0 (TRUE) - Decay correction has been applied
+#
+decay_correction_applied 0
+#
+# Normalization applied to data set (integer)
+#   0 - No normalization applied
+#   1 - Point source inversion
+#   2 - Point source component based
+#   3 - Cylinder source inversion
+#   4 - Cylinder source component based
+#
+normalization_applied 0
+#
+# Normalization filename, possibly including path (string)
+#    NOTE: Filename may contain spaces, therefore the ENTIRE
+#          line, up to the EOL, is used after the parameter name.
+#
+normalization_filename  
+#
+# Attenuation applied to data set (integer)
+#   0 - No attenuation applied
+#   1 - Point source in windowed TX coincidence
+#   2 - Point source singles based TX
+#   3 - Segmented point source in TX coincidence
+#   4 - Segmented point source singles based TX
+#   5 - Calculated by geometry
+#   6 - Non-positron source singles based TX
+#   7 - Point source in non-windowed TX coincidence
+#
+attenuation_applied 0
+#
+# Scatter correction applied to data set (integer)
+#   0 - No scatter correction applied
+#   1 - Fit of emission tail
+#   2 - Monte Carlo of emission and transmission data
+#   3 - Direct calculation from analytical formulas
+#
+scatter_correction 0
+#
+# Arc correction applied to data set (integer)
+#     0 (FALSE) - Arc correction has NOT been applied
+#     !0 (TRUE) - Arc correction has been applied
+#
+arc_correction_applied 0
+#
+# Rotation, in degrees, applied to data set (not applied to OSEM2d reconstructions) (float)
+#
+rotation 0
+#
+# X offset, in cm, applied to data set (float)
+#
+x_offset 0
+#
+# Y offset, in cm, applied to data set (float)
+#
+y_offset 0
+#
+# Z offset, in cm, applied to data set (float)
+#
+z_offset 0
+#
+# Zoom applied to data set (float)
+#
+zoom 1
+#
+# (REAL) Reconstructed pixel size, in cm (float)
+#     NOTE: pixel_size = (((X_crystal_pitch / 2.0) * X_dim) /
+#           (image_size * zoom)) * (effective_radius / radius)
+#
+pixel_size 0.109676
+#
+# Calibration units (integer)
+#   0 - Unknown calibration units
+#   1 - nCi/cc
+#   2 - Bq/cc
+#
+calibration_units 0
+#
+# Calibration factor (float)
+#   NOTE: Frame scale factor DOES NOT include
+#         calibration factor.
+#
+calibration_factor 1.0
+#
+# Calibration source branching fraction (float)
+#   NOTE: Frame scale factor DOES NOT include
+#         calibration source branching fraction.
+#
+calibration_branching_fraction 1
+#
+# Number of singles rates in subheader (integer)
+#   NOTE: This normally is the number of blocks.
+#
+number_of_singles_rates 96
+#
+# Investigator identification (string)
+#
+investigator   
+#
+# Operator identification (string)
+#
+operator   
+#
+# Study identification (string)
+#
+study_identifier  
+#
+# (REAL) Scan start date and time (string)
+#    Format is: Sun Sep 16 01:03:52 1973
+#
+scan_time Thu Feb  2 11:23:34 2017
+#
+# Injected compound (string)
+#
+injected_compound  
+#
+# Dose units (integer)
+#   0 - Unknown dose units
+#   1 - mCi
+#   2 - MBq
+#
+dose_units 0
+#
+# Injected dose (float)
+dose 0
+#
+# Injection date and time (string)
+#    Format is: Sun Sep 16 01:03:52 1973
+#
+injection_time  
+#
+# Injection decay correction factor (float)
+#   NOTE: Frame scale factor and decay correction factor
+#   DO NOT include injection decay correction factor.
+#
+injection_decay_correction 1
+#
+# Subject identifier (string)
+#
+subject_identifier  
+#
+# Subject genus (string)
+#
+subject_genus  
+#
+# Subject orientation (integer)
+#   0 - Unknown subject orientation
+#   1 - Feet first, prone
+#   2 - Head first, prone
+#   3 - Feet first, supine
+#   4 - Head first, supine
+#   5 - Feet first, right
+#   6 - Head first, right
+#   7 - Feet first, left
+#   8 - Head first, left
+#
+subject_orientation 0
+#
+# Length units (integer)
+#   0 - Unknown length units
+#   1 - millimeters
+#   2 - centimeters
+#   3 - inches
+#
+subject_length_units 0
+#
+# Subject weight (float)
+#
+subject_length 0
+#
+# Weight units (integer)
+#   0 - Unknown weight units
+#   1 - grams
+#   2 - ounces
+#   3 - kilograms
+#   4 - pounds
+#
+subject_weight_units 1
+#
+# Subject weight (float)
+#
+subject_weight 0
+#
+# Subject phenotype (string)
+#
+subject_phenotype  
+#
+# Study model (string)
+#
+study_model  
+#
+# Subject anesthesia (string)
+#
+anesthesia  
+#
+# Subject analgesia (string)
+#
+analgesia  
+#
+# Other drugs (string)
+#
+other_drugs  
+#
+# Food access (string)
+#
+food_access  
+#
+# Water access (string)
+#
+water_access  
+#
+# End of Header indicator 
+#
+end_of_header
+#
+# Header for frame 0, event_type 4, gate 0, bed 0.
+#
+#
+# (REAL) Frame number (integer)
+#
+frame 0
+#
+# Event type (integer)
+#   0 - Unknown event type
+#   1 - Singles
+#   2 - Prompt events (coincidences)
+#   3 - Delay events
+#   4 - Trues (prompts - delays)
+#
+event_type 4
+#
+# Gate number (integer)
+#
+gate 0
+#
+# Bed number (integer)
+#
+bed 0
+#
+# Bed offset, in cm (float)
+#
+bed_offset 19.9993
+#
+# Ending horizontal bed offset, in cm (float)
+#
+ending_bed_offset 0
+#
+# Vertical bed offset, in cm (float)
+#
+vertical_bed_offset -1
+#
+# Data file offset to start of data (2 longs)
+#     Values are: low_part
+#             or: high_part low_part
+#
+data_file_pointer 0 0
+#
+# Frame start time, in secs (float)
+#
+frame_start 0
+#
+# Frame duration, in secs (float)
+#
+frame_duration 61
+#
+# Scale factor for data set (float)
+#
+scale_factor 0.0169581
+#
+# Minimum value in data set (float)
+#
+minimum -163.209
+#
+# Maximum value in data set (float)
+#
+maximum 700.487
+#
+# Deadtime correction for data set (float)
+#             NOTE: Scale factor INCLUDES this value.
+#
+deadtime_correction 1.0
+#
+# Global decay correction applied to data set (float)
+#             NOTE: Scale factor INCLUDES this value.
+#
+decay_correction 1.0
+#
+# Prompts count for data set (64-bit int)
+#
+prompts 1
+#
+# Delays count for data set (64-bit int)
+#
+delays 1
+#
+# Trues count for data set (64-bit int)
+#
+trues 38284
+#trues 38284
+#
+# Singles rate array (integer  float)
+#       block_number    singles/sec
+#
+singles 0 1.0
+singles 1 1.0
+singles 2 1.0
+singles 3 1.0
+singles 4 1.0
+singles 5 1.0
+singles 6 1.0
+singles 7 1.0
+singles 8 1.0
+singles 9 1.0
+singles 10 1.0
+singles 11 1.0
+singles 12 1.0
+#
+# End of Header indicator
+#
+end_of_header
+#
+frame 1
+event_type 4
+gate 0
+bed 0
+bed_offset 19.9993
+ending_bed_offset 0
+vertical_bed_offset -1
+data_file_pointer 0 0
+frame_start 4.56417e-41
+frame_duration 2.32576e-316
+scale_factor 2.32194e-316
+minimum -163.209
+maximum 700.487
+deadtime_correction 1.0
+decay_correction 1.0
+prompts 1
+delays 1
+trues 38284
+end_of_header

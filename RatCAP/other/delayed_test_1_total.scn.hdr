@@ -1,0 +1,25 @@
+file_type 2
+total_frames 1
+isotope_branching_fraction 1
+transaxial_bin_size 0.0876
+axial_plane_size 0.119
+data_type 3
+x_dimension 47
+y_dimension 24
+z_dimension 64
+w_dimension 1
+deadtime_correction_applied 1.0
+decay_correction_applied 1.0
+calibration_units 0
+calibration_factor 1.00000
+calibration_branching_fraction 1.00000
+end_of_header
+frame 0
+frame_start 0
+frame_duration 3604.75
+scale_factor 1.00000
+deadtime_correction 1.0
+decay_correction 1.0
+prompts_rate 0
+delays_rate 0
+end_of_header
