@@ -1,0 +1,18 @@
+# line source
+/gate/source/addSource linesource
+/gate/source/linesource/setActivity 100000. becquerel
+/gate/source/linesource/setType backtoback
+/gate/source/linesource/gps/particle gamma
+/gate/source/linesource/gps/energytype Mono
+/gate/source/linesource/gps/monoenergy 0.511 MeV
+/gate/source/linesource/gps/angtype iso 
+/gate/source/linesource/gps/mintheta 0. deg 
+/gate/source/linesource/gps/maxtheta 180. deg 
+/gate/source/linesource/gps/minphi 0. deg 
+/gate/source/linesource/gps/maxphi 360. deg 
+/gate/source/linesource/gps/centre 0. 0. 0. mm
+/gate/source/linesource/gps/type Volume 
+/gate/source/linesource/gps/shape Cylinder 
+/gate/source/linesource/gps/radius 5. mm 
+/gate/source/linesource/gps/halfz 250. mm 
+/gate/source/linesource/visualize 5000 blue 2

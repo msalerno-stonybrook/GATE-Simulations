@@ -1,0 +1,51 @@
+/vis/viewer/set/style solid
+/gate/world/daughters/name micro_derenzo
+/gate/world/daughters/insert cylinder
+/gate/micro_derenzo/setMaterial Polyethylene
+/gate/micro_derenzo/placement/alignToY
+/gate/micro_derenzo/geometry/setRmax 25 mm
+/gate/micro_derenzo/geometry/setRmin 0. mm
+/gate/micro_derenzo/geometry/setHeight 37. mm
+/gate/micro_derenzo/attachPhantomSD
+/gate/micro_derenzo/vis/setColor grey
+/gate/micro_derenzo/vis/forceSolid
+
+/gate/micro_derenzo/daughters/name hole1
+/gate/micro_derenzo/daughters/insert cylinder
+/gate/hole1/setMaterial Air
+/gate/hole1/geometry/setRmax 2.30 mm
+/gate/hole1/geometry/setRmin 0. mm
+/gate/hole1/geometry/setHeight 37. mm
+/gate/hole1/placement/setTranslation -19.4395 -2.9528 0. mm
+/gate/hole1/vis/setColor green
+
+/gate/micro_derenzo/daughters/name hole2
+/gate/micro_derenzo/daughters/insert cylinder
+/gate/hole2/setMaterial Air
+/gate/hole2/geometry/setRmax 2.60 mm
+/gate/hole2/geometry/setRmin 0. mm
+/gate/hole2/geometry/setHeight 37. mm
+/gate/hole2/placement/setTranslation -17.8383 3.0455 0. mm
+/gate/hole2/vis/setColor green
+
+/gate/micro_derenzo/daughters/name hole3
+/gate/micro_derenzo/daughters/insert cylinder
+/gate/hole3/setMaterial Air
+/gate/hole3/geometry/setRmax 2.80 mm
+/gate/hole3/geometry/setRmin 0. mm
+/gate/hole3/geometry/setHeight 37. mm
+/gate/hole3/placement/setTranslation -17.0353 -7.1047 0. mm
+/gate/hole3/vis/setColor green
+
+/gate/micro_derenzo/daughters/name hole4
+/gate/micro_derenzo/daughters/insert cylinder
+/gate/hole4/setMaterial Air
+/gate/hole4/geometry/setRmax 1.80 mm
+/gate/hole4/geometry/setRmin 0. mm
+/gate/hole4/geometry/setHeight 37. mm
+/gate/hole4/placement/setTranslation -14.6379 8.5824 0. mm
+/gate/hole4/vis/setColor green
+
+
+
+

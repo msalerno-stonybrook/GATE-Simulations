@@ -1,0 +1,542 @@
+/vis/open OGLSX
+/vis/viewer/reset
+/vis/viewer/set/viewpointThetaPhi 60 60
+/vis/viewer/zoom 1
+/vis/viewer/set/style surface
+/vis/drawVolume
+/tracking/storeTrajectory 1
+/vis/scene/endOfEventAction accumulate
+/vis/viewer/update
+
+/gate/geometry/setMaterialDatabase /home/ratcap/Simulation/gate/gate_v7.1
+/gate/world/geometry/setXLength 100. cm
+/gate/world/geometry/setYLength 100. cm
+/gate/world/geometry/setZLength 100. cm
+
+#SYSTEM
+/gate/world/daughters/name cylindricalPET
+/gate/world/daughters/insert cylinder
+/gate/cylindricalPET/setMaterial Water
+/gate/cylindricalPET/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/cylindricalPET/placement/alignToY
+/gate/cylindricalPET/geometry/setRmax 350 mm
+/gate/cylindricalPET/geometry/setRmin 328 mm
+/gate/cylindricalPET/geometry/setHeight 260 mm
+/gate/cylindricalPET/vis/forceWireframe
+
+/gate/world/daughters/name phantom
+/gate/world/daughters/insert cylinder
+/gate/phantom/setMaterial Water
+/gate/phantom/placement/setTranslation 0.0 0.0 0.0 mm
+/gate/phantom/placement/alignToY
+#/gate/phantom/vis/forceWireframe
+#/gate/phantom/vis/setColor blue
+/gate/phantom/vis/forceWireframe
+/gate/phantom/geometry/setRmax   17.5 cm
+/gate/phantom/geometry/setHeight 30. cm
+#/gate/phantom/attachPhantomSD
+
+#     FIRST LEVEL OF THE SYSTEM
+/gate/cylindricalPET/daughters/name rsector
+/gate/cylindricalPET/daughters/insert box
+/gate/rsector/placement/setTranslation 339 0 0 mm
+/gate/rsector/geometry/setXLength 20 mm
+/gate/rsector/geometry/setYLength 32 mm
+/gate/rsector/geometry/setZLength 260 mm
+/gate/rsector/setMaterial Air
+#/gate/rsector/vis/setColor yellow
+/gate/rsector/vis/forceWireframe
+
+/gate/phantom/daughters/name lesion1
+/gate/phantom/daughters/insert sphere
+/gate/lesion1/placement/setTranslation 70 0 0 mm
+/gate/lesion1/geometry/setRmax 10 mm
+/gate/lesion1/geometry/setRmin 0 mm
+/gate/lesion1/setMaterial Water
+/gate/lesion1/vis/setColor yellow
+#/gate/lesion1/vis/forceWireframe
+
+/gate/phantom/daughters/name lesion2
+/gate/phantom/daughters/insert sphere
+/gate/lesion2/placement/setTranslation 130 0 0 mm
+/gate/lesion2/geometry/setRmax 10 mm
+/gate/lesion2/geometry/setRmin 0 mm
+/gate/lesion2/setMaterial Water
+/gate/lesion2/vis/setColor yellow
+#/gate/lesion2/vis/forceWireframe
+
+
+#     SECOND LEVEL OF THE SYSTEM
+/gate/rsector/daughters/name module
+/gate/rsector/daughters/insert box
+/gate/module/placement/setTranslation 0 0 0 mm
+/gate/module/geometry/setXLength 20 mm
+/gate/module/geometry/setYLength 32 mm
+/gate/module/geometry/setZLength 32 mm
+/gate/module/setMaterial Air
+/gate/module/vis/setColor yellow
+/gate/module/vis/forceWireframe
+
+
+#     THIRD LEVEL OF THE SYSTEM
+/gate/module/daughters/name crystal
+/gate/module/daughters/insert box
+#/gate/crystal/placement/setTranslation 0 0 0 mm
+/gate/crystal/geometry/setXLength 20 mm
+/gate/crystal/geometry/setYLength 3.9 mm
+/gate/crystal/geometry/setZLength 3.9 mm
+/gate/crystal/setMaterial Air
+#/gate/crystal/setMaterial LSO
+/gate/crystal/vis/setColor red
+/gate/crystal/vis/forceWireframe
+
+#      Layer
+/gate/crystal/daughters/name LSO
+/gate/crystal/daughters/insert box
+/gate/LSO/placement/setTranslation 0 0 0 mm
+/gate/LSO/geometry/setXLength 20 mm
+/gate/LSO/geometry/setYLength 3.9 mm
+/gate/LSO/geometry/setZLength 3.9 mm
+/gate/LSO/setMaterial LSO
+
+#      R E P E A T    C R Y S T A L
+/gate/crystal/repeaters/insert cubicArray
+/gate/crystal/cubicArray/setRepeatNumberX 1
+/gate/crystal/cubicArray/setRepeatNumberY 8
+/gate/crystal/cubicArray/setRepeatNumberZ 8
+/gate/crystal/cubicArray/setRepeatVector 0.0 4 4 mm
+
+#       R E P E A T    M O D U L E
+/gate/module/repeaters/insert linear
+/gate/module/linear/setRepeatNumber 8
+/gate/module/linear/setRepeatVector 0. 0. 32.3 mm
+
+#	R E P E A T    R S E C T O R 
+/gate/rsector/repeaters/insert ring
+/gate/rsector/ring/setRepeatNumber 56
+
+#	R E P E A T    L E S I O N 
+
+/gate/lesion1/repeaters/insert ring
+/gate/lesion1/ring/setRepeatNumber 8
+/gate/lesion2/repeaters/insert ring
+/gate/lesion2/ring/setRepeatNumber 8
+
+
+#	A T T A C H    S Y S T E M 
+/gate/systems/cylindricalPET/rsector/attach rsector
+/gate/systems/cylindricalPET/module/attach module
+/gate/systems/cylindricalPET/crystal/attach crystal
+/gate/systems/cylindricalPET/layer0/attach LSO
+
+#	A T T A C H    C R Y S T A L  SD
+/gate/LSO/attachCrystalSD
+/vis/viewer/zoom 2
+
+#	A T T A C H    P H A N T O M  SD
+/gate/phantom/attachPhantomSD
+/gate/lesion1/attachPhantomSD
+/gate/lesion2/attachPhantomSD
+
+#/control/execute derenzo_geom.mac
+
+#       P H Y S I C S
+#
+/gate/physics/addProcess PhotoElectric
+/gate/physics/processes/PhotoElectric/setModel StandardModel
+
+/gate/physics/addProcess Compton
+/gate/physics/processes/Compton/setModel StandardModel
+
+/gate/physics/addProcess RayleighScattering 
+/gate/physics/processes/RayleighScattering/setModel LivermoreModel
+
+/gate/physics/addProcess ElectronIonisation
+/gate/physics/processes/ElectronIonisation/setModel StandardModel e-
+/gate/physics/processes/ElectronIonisation/setModel StandardModel e+
+
+/gate/physics/addProcess Bremsstrahlung
+/gate/physics/processes/Bremsstrahlung/setModel StandardModel e-
+/gate/physics/processes/Bremsstrahlung/setModel StandardModel e+
+
+/gate/physics/addProcess PositronAnnihilation
+
+/gate/physics/addProcess eMultipleScattering
+/gate/physics/processes/eMultipleScattering/setGeometricalStepLimiterType e- distanceToBoundary
+/gate/physics/processes/eMultipleScattering/setGeometricalStepLimiterType e+ distanceToBoundary
+
+/gate/physics/addProcess RadioactiveDecay
+
+/gate/physics/processList Enabled
+/gate/physics/processList Initialized
+
+
+#CUT X , DELTA AND ELECTRON
+#/gate/physics/setXRayCut 10 keV
+#/gate/physics/setDeltaRayCut 10 keV
+#/gate/physics/setElectronCut 2 mm
+
+
+# INITIALIZE
+/gate/run/initialize
+
+
+
+#       DIGITIZER
+/gate/digitizer/Singles/insert adder 
+/gate/digitizer/Singles/insert readout
+/gate/digitizer/Singles/readout/setDepth 2
+
+#	TEMPORAL RESOLUTION
+/gate/digitizer/Singles/insert timeResolution
+/gate/digitizer/Singles/timeResolution/setTimeResolution 2.93 ns
+
+ 
+# ENERGY BLURRING
+/gate/digitizer/Singles/insert blurring
+/gate/digitizer/Singles/blurring/setResolution 0.145
+/gate/digitizer/Singles/blurring/setEnergyOfReference 511. keV 
+
+
+
+# ENERGY WINDOW
+/gate/digitizer/Singles/insert thresholder
+/gate/digitizer/Singles/thresholder/setThreshold 430. keV
+/gate/digitizer/Singles/insert upholder
+/gate/digitizer/Singles/upholder/setUphold 610. keV 
+
+# DEAD TIME
+/gate/digitizer/Singles/insert deadtime
+/gate/digitizer/Singles/deadtime/setDeadTime 80. ns
+/gate/digitizer/Singles/deadtime/setMode nonparalysable
+/gate/digitizer/Singles/deadtime/chooseDTVolume module
+
+#	C O I N C I D E N C E S O R T E R
+/gate/digitizer/Coincidences/setWindow 5.86 ns 
+/gate/digitizer/Coincidences/setOffset 0. ns
+/gate/digitizer/Coincidences/setDepth 3
+#/gate/digitizer/Coincidences/describe
+/gate/digitizer/Coincidences/MultiplesPolicy killAll
+
+/gate/digitizer/name delay
+/gate/digitizer/insert coincidenceSorter
+/gate/digitizer/delay/setWindow 20. ns
+/gate/digitizer/delay/setOffset 500. ns
+
+# Phantom
+# 0.1 uCi/cm³ = 249 MBq
+/gate/source/addSource linesource
+/gate/source/linesource/setActivity 150000. becquerel
+/gate/source/linesource/setType backtoback
+/gate/source/linesource/gps/particle gamma
+/gate/source/linesource/gps/energytype Mono
+/gate/source/linesource/gps/monoenergy 0.511 MeV
+/gate/source/linesource/gps/angtype iso 
+/gate/source/linesource/gps/mintheta 0. deg 
+/gate/source/linesource/gps/maxtheta 180. deg 
+/gate/source/linesource/gps/minphi 0. deg 
+/gate/source/linesource/gps/maxphi 360. deg 
+/gate/source/linesource/gps/type Volume 
+/gate/source/linesource/gps/shape Cylinder 
+/gate/source/linesource/gps/radius 17.5. cm 
+/gate/source/linesource/gps/halfz 35. cm 
+
+# Lesion
+# 0.1 uCi/cm³ = 1939 Bq
+/gate/source/addSource L1
+/gate/source/addSource L2
+/gate/source/addSource L3
+/gate/source/addSource L4
+/gate/source/addSource L5
+/gate/source/addSource L6
+/gate/source/addSource L7
+/gate/source/addSource L8
+/gate/source/addSource L9
+/gate/source/addSource L10
+/gate/source/addSource L11
+/gate/source/addSource L12
+/gate/source/addSource L13
+/gate/source/addSource L14
+/gate/source/addSource L15
+/gate/source/addSource L16
+
+/gate/source/L1/setActivity 3878. becquerel
+/gate/source/L2/setActivity 3878. becquerel
+/gate/source/L3/setActivity 3878. becquerel
+/gate/source/L4/setActivity 3878. becquerel
+/gate/source/L5/setActivity 3878. becquerel
+/gate/source/L6/setActivity 3878. becquerel
+/gate/source/L7/setActivity 3878. becquerel
+/gate/source/L8/setActivity 3878. becquerel
+/gate/source/L9/setActivity 3878. becquerel
+/gate/source/L10/setActivity 3878. becquerel
+/gate/source/L11/setActivity 3878. becquerel
+/gate/source/L12/setActivity 3878. becquerel
+/gate/source/L13/setActivity 3878. becquerel
+/gate/source/L14/setActivity 3878. becquerel
+/gate/source/L15/setActivity 3878. becquerel
+/gate/source/L16/setActivity 3878. becquerel
+
+/gate/source/L1/setType backtoback
+/gate/source/L2/setType backtoback
+/gate/source/L3/setType backtoback
+/gate/source/L4/setType backtoback
+/gate/source/L5/setType backtoback
+/gate/source/L6/setType backtoback
+/gate/source/L7/setType backtoback
+/gate/source/L8/setType backtoback
+/gate/source/L9/setType backtoback
+/gate/source/L10/setType backtoback
+/gate/source/L11/setType backtoback
+/gate/source/L12/setType backtoback
+/gate/source/L13/setType backtoback
+/gate/source/L14/setType backtoback
+/gate/source/L15/setType backtoback
+/gate/source/L16/setType backtoback
+
+/gate/source/L1/gps/particle gamma
+/gate/source/L2/gps/particle gamma
+/gate/source/L3/gps/particle gamma
+/gate/source/L4/gps/particle gamma
+/gate/source/L5/gps/particle gamma
+/gate/source/L6/gps/particle gamma
+/gate/source/L7/gps/particle gamma
+/gate/source/L8/gps/particle gamma
+/gate/source/L9/gps/particle gamma
+/gate/source/L10/gps/particle gamma
+/gate/source/L11/gps/particle gamma
+/gate/source/L12/gps/particle gamma
+/gate/source/L13/gps/particle gamma
+/gate/source/L14/gps/particle gamma
+/gate/source/L15/gps/particle gamma
+/gate/source/L16/gps/particle gamma
+
+/gate/source/L1/gps/energytype Mono
+/gate/source/L2/gps/energytype Mono
+/gate/source/L3/gps/energytype Mono
+/gate/source/L4/gps/energytype Mono
+/gate/source/L5/gps/energytype Mono
+/gate/source/L6/gps/energytype Mono
+/gate/source/L7/gps/energytype Mono
+/gate/source/L8/gps/energytype Mono
+/gate/source/L9/gps/energytype Mono
+/gate/source/L10/gps/energytype Mono
+/gate/source/L11/gps/energytype Mono
+/gate/source/L12/gps/energytype Mono
+/gate/source/L13/gps/energytype Mono
+/gate/source/L14/gps/energytype Mono
+/gate/source/L15/gps/energytype Mono
+/gate/source/L16/gps/energytype Mono
+
+/gate/source/L1/gps/monoenergy 0.511 MeV
+/gate/source/L2/gps/monoenergy 0.511 MeV
+/gate/source/L3/gps/monoenergy 0.511 MeV
+/gate/source/L4/gps/monoenergy 0.511 MeV
+/gate/source/L5/gps/monoenergy 0.511 MeV
+/gate/source/L6/gps/monoenergy 0.511 MeV
+/gate/source/L7/gps/monoenergy 0.511 MeV
+/gate/source/L8/gps/monoenergy 0.511 MeV
+/gate/source/L9/gps/monoenergy 0.511 MeV
+/gate/source/L10/gps/monoenergy 0.511 MeV
+/gate/source/L11/gps/monoenergy 0.511 MeV
+/gate/source/L12/gps/monoenergy 0.511 MeV
+/gate/source/L13/gps/monoenergy 0.511 MeV
+/gate/source/L14/gps/monoenergy 0.511 MeV
+/gate/source/L15/gps/monoenergy 0.511 MeV
+/gate/source/L16/gps/monoenergy 0.511 MeV
+
+/gate/source/L1/gps/type Volume
+/gate/source/L2/gps/type Volume
+/gate/source/L3/gps/type Volume
+/gate/source/L4/gps/type Volume
+/gate/source/L5/gps/type Volume
+/gate/source/L6/gps/type Volume
+/gate/source/L7/gps/type Volume
+/gate/source/L8/gps/type Volume
+/gate/source/L9/gps/type Volume
+/gate/source/L10/gps/type Volume
+/gate/source/L11/gps/type Volume
+/gate/source/L12/gps/type Volume
+/gate/source/L13/gps/type Volume
+/gate/source/L14/gps/type Volume
+/gate/source/L15/gps/type Volume
+/gate/source/L16/gps/type Volume
+
+/gate/source/L1/gps/shape Sphere
+/gate/source/L2/gps/shape Sphere
+/gate/source/L3/gps/shape Sphere
+/gate/source/L4/gps/shape Sphere
+/gate/source/L5/gps/shape Sphere
+/gate/source/L6/gps/shape Sphere
+/gate/source/L7/gps/shape Sphere
+/gate/source/L8/gps/shape Sphere
+/gate/source/L9/gps/shape Sphere
+/gate/source/L10/gps/shape Sphere
+/gate/source/L11/gps/shape Sphere
+/gate/source/L12/gps/shape Sphere
+/gate/source/L13/gps/shape Sphere
+/gate/source/L14/gps/shape Sphere
+/gate/source/L15/gps/shape Sphere
+/gate/source/L16/gps/shape Sphere
+
+/gate/source/L1/gps/centre 7. 0. 0. cm
+/gate/source/L2/gps/centre 4.95 4.95 0. cm
+/gate/source/L3/gps/centre 0. 7. 0. cm
+/gate/source/L4/gps/centre -4.95 4.95 0. cm
+/gate/source/L5/gps/centre -7. 0. 0. cm
+/gate/source/L6/gps/centre -4.95 -4.95 0. cm
+/gate/source/L7/gps/centre 0. -7. 0. cm
+/gate/source/L8/gps/centre 4.95 -4.95 0. cm
+/gate/source/L9/gps/centre 13. 0. 0. cm
+/gate/source/L10/gps/centre 9.19 9.19 0. cm
+/gate/source/L11/gps/centre 0. 13. 0. cm
+/gate/source/L12/gps/centre 9.19 -9.19 0. cm
+/gate/source/L13/gps/centre -13. 0. 0. cm
+/gate/source/L14/gps/centre -9.19 -9.19 0. cm
+/gate/source/L15/gps/centre 0. -13. 0. cm
+/gate/source/L16/gps/centre 9.19 -9.19 0. cm
+
+/gate/source/L1/gps/radius 10 mm
+/gate/source/L2/gps/radius 10 mm
+/gate/source/L3/gps/radius 10 mm
+/gate/source/L4/gps/radius 10 mm
+/gate/source/L5/gps/radius 10 mm
+/gate/source/L6/gps/radius 10 mm
+/gate/source/L7/gps/radius 10 mm
+/gate/source/L8/gps/radius 10 mm
+/gate/source/L9/gps/radius 10 mm
+/gate/source/L10/gps/radius 10 mm
+/gate/source/L11/gps/radius 10 mm
+/gate/source/L12/gps/radius 10 mm
+/gate/source/L13/gps/radius 10 mm
+/gate/source/L14/gps/radius 10 mm
+/gate/source/L15/gps/radius 10 mm
+/gate/source/L16/gps/radius 10 mm
+
+
+/gate/source/L1/gps/angtype iso
+/gate/source/L2/gps/angtype iso
+/gate/source/L3/gps/angtype iso
+/gate/source/L4/gps/angtype iso
+/gate/source/L5/gps/angtype iso
+/gate/source/L6/gps/angtype iso
+/gate/source/L7/gps/angtype iso
+/gate/source/L8/gps/angtype iso
+/gate/source/L9/gps/angtype iso
+/gate/source/L10/gps/angtype iso
+/gate/source/L11/gps/angtype iso
+/gate/source/L12/gps/angtype iso
+/gate/source/L13/gps/angtype iso
+/gate/source/L14/gps/angtype iso
+/gate/source/L15/gps/angtype iso
+/gate/source/L16/gps/angtype iso
+
+/gate/source/L1/gps/mintheta 0. deg
+/gate/source/L2/gps/mintheta 0. deg
+/gate/source/L3/gps/mintheta 0. deg
+/gate/source/L4/gps/mintheta 0. deg
+/gate/source/L5/gps/mintheta 0. deg
+/gate/source/L6/gps/mintheta 0. deg
+/gate/source/L7/gps/mintheta 0. deg
+/gate/source/L8/gps/mintheta 0. deg
+/gate/source/L9/gps/mintheta 0. deg
+/gate/source/L10/gps/mintheta 0. deg
+/gate/source/L11/gps/mintheta 0. deg
+/gate/source/L12/gps/mintheta 0. deg
+/gate/source/L13/gps/mintheta 0. deg
+/gate/source/L14/gps/mintheta 0. deg
+/gate/source/L15/gps/mintheta 0. deg
+/gate/source/L16/gps/mintheta 0. deg
+
+/gate/source/L1/gps/maxtheta 180. deg
+/gate/source/L2/gps/maxtheta 180. deg
+/gate/source/L3/gps/maxtheta 180. deg
+/gate/source/L4/gps/maxtheta 180. deg
+/gate/source/L5/gps/maxtheta 180. deg
+/gate/source/L6/gps/maxtheta 180. deg
+/gate/source/L7/gps/maxtheta 180. deg
+/gate/source/L8/gps/maxtheta 180. deg
+/gate/source/L9/gps/maxtheta 180. deg
+/gate/source/L10/gps/maxtheta 180. deg
+/gate/source/L11/gps/maxtheta 180. deg
+/gate/source/L12/gps/maxtheta 180. deg
+/gate/source/L13/gps/maxtheta 180. deg
+/gate/source/L14/gps/maxtheta 180. deg
+/gate/source/L15/gps/maxtheta 180. deg
+/gate/source/L16/gps/maxtheta 180. deg
+
+/gate/source/L1/gps/minphi 0. deg
+/gate/source/L2/gps/minphi 0. deg
+/gate/source/L3/gps/minphi 0. deg
+/gate/source/L4/gps/minphi 0. deg
+/gate/source/L5/gps/minphi 0. deg
+/gate/source/L6/gps/minphi 0. deg
+/gate/source/L7/gps/minphi 0. deg
+/gate/source/L8/gps/minphi 0. deg
+/gate/source/L9/gps/minphi 0. deg
+/gate/source/L10/gps/minphi 0. deg
+/gate/source/L11/gps/minphi 0. deg
+/gate/source/L12/gps/minphi 0. deg
+/gate/source/L13/gps/minphi 0. deg
+/gate/source/L14/gps/minphi 0. deg
+/gate/source/L15/gps/minphi 0. deg
+/gate/source/L16/gps/minphi 0. deg
+
+/gate/source/L1/gps/maxphi 360. deg
+/gate/source/L2/gps/maxphi 360. deg
+/gate/source/L3/gps/maxphi 360. deg
+/gate/source/L4/gps/maxphi 360. deg
+/gate/source/L5/gps/maxphi 360. deg
+/gate/source/L6/gps/maxphi 360. deg
+/gate/source/L7/gps/maxphi 360. deg
+/gate/source/L8/gps/maxphi 360. deg
+/gate/source/L9/gps/maxphi 360. deg
+/gate/source/L10/gps/maxphi 360. deg
+/gate/source/L11/gps/maxphi 360. deg
+/gate/source/L12/gps/maxphi 360. deg
+/gate/source/L13/gps/maxphi 360. deg
+/gate/source/L14/gps/maxphi 360. deg
+/gate/source/L15/gps/maxphi 360. deg
+/gate/source/L16/gps/maxphi 360. deg
+
+
+#/gate/source/L1/visualize 1 yellow 5
+
+
+#O U T P U T
+#ASCII
+#/gate/output/ascii/enable
+#/gate/output/ascii/setFileName root_output_mmR
+#/gate/output/ascii/setOutFileHitsFlag 0
+#/gate/output/ascii/setOutFileSinglesFlag 1
+#/gate/output/ascii/setOutFileCoincidencesFlag 1
+#
+#ROOT
+#/gate/output/root/enable
+#/gate/output/root/setFileName mmR_LD_out
+#/gate/output/root/setRootNtupleFlag 1
+#/gate/output/root/setRootHitFlag 0
+#/gate/output/root/setRootSinglesFlag 1
+#/gate/output/root/setRootCoincidencesFlag 1
+#/gate/output/root/setSaveRndmFlag 1
+#LMF
+#/gate/output/lmf/disable
+#
+
+#   R A N D O M
+# JamesRandom Ranlux64 MersenneTwister
+/gate/random/setEngineName JamesRandom
+#/gate/random/setEngineSeed default
+/gate/random/setEngineSeed auto
+#/gate/random/setEngineSeed 123456789
+#/gate/random/resetEngineFrom fileName
+/gate/random/verbose 1
+
+#S T A R T
+#/gate/application/setTimeSlice 10. s
+#/gate/application/setTimeStart 0. s
+#/gate/application/setTimeStop 10 s
+#/gate/application/startDAQ
+
+exit
+

@@ -1,0 +1,17 @@
+# TASK
+# DEFINE A RAW SINOGRAM OUTPUT
+# APPLY A SPATIAL BLURRING (2 MM FWHM)
+# STORE THE TRUE COINCIDENCES
+
+/gate/output/sinogram/enable
+/gate/output/sinogram/setFileName output/YourSinogram	
+/gate/output/sinogram/RawOutputEnable yes
+
+#/gate/output/sinogram/setTangCrystalBlurring 2 mm
+#/gate/output/sinogram/setAxialCrystalBlurring 2 mm
+/gate/output/sinogram/setInputDataName Coincidences
+/gate/output/sinogram/TruesOnly
+#/gate/output/sinogram/StoreDelayeds
+#/gate/output/sinogram/StoreScatters
+/gate/output/sinogram/verbose 1
+/gate/output/sinogram/describe

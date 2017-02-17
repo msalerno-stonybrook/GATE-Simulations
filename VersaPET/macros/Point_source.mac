@@ -1,0 +1,14 @@
+/gate/source/addSource twogamma
+/gate/source/twogamma/setActivity 100000. becquerel
+/gate/source/twogamma/setType backtoback
+/gate/source/twogamma/gps/particle gamma
+/gate/source/twogamma/gps/energytype Mono
+/gate/source/twogamma/gps/monoenergy 0.511 MeV
+/gate/source/twogamma/gps/type Point
+/gate/source/twogamma/gps/centre 0. 0. 0. mm
+/gate/source/twogamma/gps/angtype iso
+/gate/source/twogamma/gps/mintheta 0. deg
+/gate/source/twogamma/gps/maxtheta 180. deg
+/gate/source/twogamma/gps/minphi 0. deg
+/gate/source/twogamma/gps/maxphi 360. deg
+/gate/source/linesource/visualize 5000 blue 2

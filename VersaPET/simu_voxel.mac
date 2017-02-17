@@ -1,0 +1,84 @@
+#-------------------oooooOOOOO00000OOOOOooooo---------------------#
+#
+#         D E F I N E   Y O U R   S C A N N E R   A N D       
+#                                                             
+#        Y O U R   C O M P L E T E   S I M U L A T I O N   
+#                                                             
+#        F O R   I M A G I N G    A P P L I CA T I O N S       
+#                                                     
+#-------------------oooooOOOOO00000OOOOOooooo---------------------#
+
+#=====================================================
+# VISUALISATION
+#=====================================================
+
+#/vis/disable
+
+/control/execute ./macros/visu.mac
+
+#=====================================================
+# GEOMETRY
+#=====================================================
+
+/control/execute                         ./macros/Geometry.mac
+
+#=====================================================
+#  P H A N T O M
+#=====================================================
+
+#/control/execute                         ./macros/VoxelizedPhantom.mac
+
+#=====================================================
+# PHYSICS
+#=====================================================
+
+/control/execute                        ./macros/Physics.mac
+
+#=====================================================
+# INITIALISATION
+#=====================================================
+
+/gate/run/initialize
+
+#=====================================================
+#   D I G I T I Z E R: DETECTOR ELECTRONIC RESPONSE
+#===================================================== 
+
+/control/execute                         ./macros/Digitizer.mac
+
+#=====================================================
+#  P A R T I C L E   S O U R C E
+#=====================================================
+
+#/control/execute                          ./macros/VoxelizedSource.mac
+
+/control/execute                          ./macros/Line_source.mac
+#/control/execute                          ./macros/Point_source.mac
+
+#=====================================================
+#  D A T A   O U T P U T   
+#=====================================================
+
+/control/execute                          ./macros/Output.mac
+
+#=====================================================
+#   R A N D O M   P A R A M E T E R S
+#=====================================================
+
+# JamesRandom Ranlux64 MersenneTwister
+/gate/random/setEngineName JamesRandom
+#/gate/random/setEngineSeed default
+/gate/random/setEngineSeed auto
+#/gate/random/setEngineSeed 123456789
+#/gate/random/resetEngineFrom fileName
+/gate/random/verbose 1
+
+#=====================================================
+#   A C Q U I S I T I O N   S E T T I N G S   
+#=====================================================
+
+/gate/application/setTimeSlice   15 s
+/gate/application/setTimeStart   0 s
+/gate/application/setTimeStop    15 s
+
+/gate/application/startDAQ

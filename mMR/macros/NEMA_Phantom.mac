@@ -1,0 +1,10 @@
+#      PHANTOM
+#/gate/world/daughters/name NEMACubic
+#/gate/world/daughters/insert box
+#/gate/NEMACubic/setMaterial Acrylic
+#/gate/NEMACubic/placement/setTranslation 0. 0. 0. mm
+#/gate/NEMACubic/geometry/setXLength 10. mm
+#/gate/NEMACubic/geometry/setYLength 10. mm
+#/gate/NEMACubic/geometry/setZLength 10. mm
+#/gate/NEMACubic/vis/forceSolid
+#/gate/NEMACubic/vis/setColor white

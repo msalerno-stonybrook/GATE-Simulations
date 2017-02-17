@@ -1,0 +1,15 @@
+/gate/source/addSource Na22PointSource
+/gate/source/Na22PointSource/setActivity 100000. becquerel
+/gate/source/Na22PointSource/gps/particle e+
+/gate/source/Na22PointSource/setForcedUnstableFlag true
+/gate/source/Na22PointSource/setForcedHalfLife 82078747.2 s
+/gate/source/Na22PointSource/gps/energytype Mono
+/gate/source/Na22PointSource/gps/type Volume
+/gate/source/Na22PointSource/gps/shape Sphere
+/gate/source/Na22PointSource/gps/radius .3 mm
+/gate/source/Na22PointSource/gps/angtype iso
+/gate/source/Na22PointSource/gps/centre 0. 0. 0. mm
+/gate/source/Na22PointSource/gps/mintheta 0. deg 
+/gate/source/Na22PointSource/gps/maxtheta 180. deg 
+/gate/source/Na22PointSource/gps/minphi 0. deg 
+/gate/source/Na22PointSource/gps/maxphi 360. deg
