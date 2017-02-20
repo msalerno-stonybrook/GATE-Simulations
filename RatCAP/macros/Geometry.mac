@@ -20,8 +20,8 @@
 /gate/world/daughters/insert 				cylinder
 /gate/cylindricalPET/placement/setTranslation 		0 0 0 mm
 /gate/cylindricalPET/placement/alignToZ
-/gate/cylindricalPET/geometry/setRmax 			45 mm
-/gate/cylindricalPET/geometry/setRmin 			36 mm
+/gate/cylindricalPET/geometry/setRmax 			25 mm
+/gate/cylindricalPET/geometry/setRmin 			19 mm
 /gate/cylindricalPET/geometry/setHeight 		18 mm
 
 # CHOOSE A MATERIAL
@@ -33,7 +33,7 @@
 #-----------------------------------------------------------------------------------------------
 /gate/cylindricalPET/daughters/name 			rsector
 /gate/cylindricalPET/daughters/insert 			box
-/gate/rsector/placement/setTranslation 			38.5 0 0 mm
+/gate/rsector/placement/setTranslation 		        21.5 0 0 mm
 /gate/rsector/geometry/setXLength 			5. mm
 /gate/rsector/geometry/setYLength 			9.24 mm
 /gate/rsector/geometry/setZLength 			18 mm
