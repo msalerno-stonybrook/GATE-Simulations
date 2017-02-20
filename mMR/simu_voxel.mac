@@ -26,7 +26,7 @@
 #  P H A N T O M
 #=====================================================
 
-#/control/execute                         ./macros/VoxelizedPhantom.mac
+/control/execute                         ./macros/VoxelizedPhantom.mac
 
 #=====================================================
 # PHYSICS
@@ -50,9 +50,9 @@
 #  P A R T I C L E   S O U R C E
 #=====================================================
 
-#/control/execute                          ./macros/VoxelizedSource.mac
+/control/execute                          ./macros/VoxelizedSource.mac
 
-/control/execute                          ./macros/Line_source.mac
+#/control/execute                          ./macros/Line_source.mac
 #/control/execute                          ./macros/Point_source.mac
 
 #=====================================================
