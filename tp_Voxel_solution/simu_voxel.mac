@@ -8,6 +8,9 @@
 #                                                     
 #-------------------oooooOOOOO00000OOOOOooooo---------------------#
 
+# USE THE USER'S GUIDE TO COMPLETE THE PRATICAL EXERCICE
+# http://wiki.opengatecollaboration.org/index.php/Users_Guide_V6.2
+
 #=====================================================
 # VISUALISATION
 #=====================================================
@@ -22,10 +25,14 @@
 
 /control/execute                         ./macros/Geometry.mac
 
+
 #=====================================================
 #  P H A N T O M
 #=====================================================
 
+# TASK:
+# OPEN AND COMPLETE THE FILE
+# 
 /control/execute                         ./macros/VoxelizedPhantom.mac
 
 #=====================================================
@@ -38,7 +45,9 @@
 # INITIALISATION
 #=====================================================
 
+
 /gate/run/initialize
+
 
 #=====================================================
 #   D I G I T I Z E R: DETECTOR ELECTRONIC RESPONSE
@@ -50,10 +59,11 @@
 #  P A R T I C L E   S O U R C E
 #=====================================================
 
+# TASK:
+# OPEN AND COMPLETE THE FILE
+# 
 /control/execute                          ./macros/VoxelizedSource.mac
 
-#/control/execute                          ./macros/Line_source.mac
-#/control/execute                          ./macros/Point_source.mac
 
 #=====================================================
 #  D A T A   O U T P U T   
@@ -65,11 +75,11 @@
 #   R A N D O M   P A R A M E T E R S
 #=====================================================
 
-# JamesRandom Ranlux64 MersenneTwister
-/gate/random/setEngineName JamesRandom
+# JamesRandom MersenneTwister
+/gate/random/setEngineName MersenneTwister
 #/gate/random/setEngineSeed default
-/gate/random/setEngineSeed auto
-#/gate/random/setEngineSeed 123456789
+#/gate/random/setEngineSeed auto
+/gate/random/setEngineSeed 123456789
 #/gate/random/resetEngineFrom fileName
 /gate/random/verbose 1
 

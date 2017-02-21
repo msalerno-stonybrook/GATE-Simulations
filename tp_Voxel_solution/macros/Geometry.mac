@@ -1,0 +1,99 @@
+#
+#     W O R L D
+#
+/gate/geometry/setMaterialDatabase    GateMaterials.db
+
+
+/gate/world/geometry/setXLength       400. cm
+/gate/world/geometry/setYLength       400. cm
+/gate/world/geometry/setZLength       400. cm
+
+#-------------------oooooOOOOO00000OOOOOooooo---------------------#
+#                                                                 #
+#     D E F I N I T I O N   A N D   D E S C R I T I O N           #
+#        O F   Y O U R   P E T   D E V I C E                      #
+#                                                                 #
+#-------------------oooooOOOOO00000OOOOOooooo---------------------#
+
+
+# TASK
+# DEFINE A PET SYSTEM : cylindrycalPET or ecat ??? (IF YOU PLAN TO USE ET SINOGRAM OUTPUT)
+#
+/gate/world/daughters/name                    ecat
+/gate/world/daughters/insert		             cylinder
+/gate/ecat/placement/setTranslation           0.0 0.0 0.0 cm
+/gate/ecat/geometry/setRmax                   50 cm
+/gate/ecat/geometry/setRmin                   43 cm
+/gate/ecat/geometry/setHeight                 25 cm
+# TASK
+# CHOOSE A MATERIAL
+#
+/gate/ecat/setMaterial                        Air
+/gate/ecat/vis/forceWireframe
+/gate/ecat/vis/setColor                       red
+
+#	BLOCK
+/gate/ecat/daughters/name                     blockDetector
+/gate/ecat/daughters/insert                   box
+/gate/blockDetector/placement/setTranslation  46 0 0 cm
+/gate/blockDetector/geometry/setXLength       2 cm
+/gate/blockDetector/geometry/setYLength       5.35 cm # 12*4mm for crystal + 11*0.5 for gaps
+/gate/blockDetector/geometry/setZLength       5.35 cm
+# TASK
+# CHOOSE A MATERIAL
+#
+/gate/blockDetector/setMaterial               Air
+/gate/ecat/vis/forceWireframe
+/gate/blockDetector/vis/setColor              green
+
+
+
+#	C R Y S T A L
+/gate/blockDetector/daughters/name             crystalUnit
+/gate/blockDetector/daughters/insert           box
+/gate/crystalUnit/placement/setTranslation     0.0 0.0 0.0 mm
+/gate/crystalUnit/geometry/setXLength          20. mm
+/gate/crystalUnit/geometry/setYLength          4. mm
+/gate/crystalUnit/geometry/setZLength          4. mm
+# TASK
+# CHOOSE A MATERIAL
+#
+/gate/crystalUnit/setMaterial                  LSO
+/gate/crystalUnit/vis/setColor                 yellow
+#/gate/crystalUnit/vis/setVisible              0
+
+
+# TASK
+# REPEAT THE BLOCK AND THE CRYSTAL
+# BLOCK: ring(x46) & linear(x4)
+# CRYSTAL: cubicArray(12x12)
+# CHECK THE GAP VALUE !
+/gate/blockDetector/repeaters/insert                  ring
+/gate/blockDetector/ring/setRepeatNumber              46
+
+/gate/blockDetector/repeaters/insert                  linear
+/gate/blockDetector/linear/setRepeatNumber            4
+/gate/blockDetector/linear/setRepeatVector            0.0 0.0 55 mm
+
+/gate/crystalUnit/repeaters/insert                    cubicArray
+/gate/crystalUnit/cubicArray/setRepeatNumberX         1
+/gate/crystalUnit/cubicArray/setRepeatNumberY         12
+/gate/crystalUnit/cubicArray/setRepeatNumberZ         12
+/gate/crystalUnit/cubicArray/setRepeatVector          0.0 4.5 4.5 mm
+
+
+
+# TASK
+# ATTACH the VOLUMES TO THE SYSTEM TREE
+#
+/gate/systems/ecat/block/attach     blockDetector
+/gate/systems/ecat/crystal/attach   crystalUnit
+
+# TASK
+# DEFINE THE SENSITIVE DETECTOR
+#
+/gate/crystalUnit/attachCrystalSD
+
+
+# VERBOSITY ON THE SYSTEM
+/gate/systems/ecat/describe

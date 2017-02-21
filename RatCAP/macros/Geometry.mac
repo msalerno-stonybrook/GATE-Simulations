@@ -3,9 +3,9 @@
 #
 /gate/geometry/setMaterialDatabase ./GateMaterials.db
 
-/gate/world/geometry/setXLength       20. cm
-/gate/world/geometry/setYLength       20. cm
-/gate/world/geometry/setZLength       20. cm
+/gate/world/geometry/setXLength       10. cm
+/gate/world/geometry/setYLength       10. cm
+/gate/world/geometry/setZLength       10. cm
 
 #-------------------oooooOOOOO00000OOOOOooooo---------------------#
 #                                                                 #
