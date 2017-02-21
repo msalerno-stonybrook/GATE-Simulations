@@ -14,7 +14,7 @@
 
 #/vis/disable
 
-/control/execute ./macros/visu.mac
+/control/execute ./macros/visu2.mac
 
 #=====================================================
 # GEOMETRY
@@ -77,8 +77,8 @@
 #   A C Q U I S I T I O N   S E T T I N G S   
 #=====================================================
 
-/gate/application/setTimeSlice   5 s
+/gate/application/setTimeSlice   25 s
 /gate/application/setTimeStart   0 s
-/gate/application/setTimeStop    5 s
+/gate/application/setTimeStop    25 s
 
 /gate/application/startDAQ

@@ -1,16 +1,3 @@
-# THIS IS FROM THE EXAMPLE FILE ON THE WEBSITE
-#/vis/open OGLSX
-#/vis/viewer/set/viewpointThetaPhi 55 45
-#/vis/viewer/zoom 4.
-#/vis/viewer/set/projection perspective
-#/vis/viewer/set/lightsMove camera
-#/vis/drawVolume
-#/tracking/storeTrajectory 1
-#/vis/scene/add/trajectories
-#/vis/scene/endOfEventAction accumulate -1
-#/vis/scene/add/axes 
-
-
 # THIS IS FROM ALEX'S VERSAPET MAC FILE
 /vis/open OGLSX
 /vis/viewer/reset

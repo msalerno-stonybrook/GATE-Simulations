@@ -14,7 +14,7 @@
 
 #/vis/disable
 
-/control/execute ./macros/visu.mac
+/control/execute ./macros/visu2.mac
 
 #=====================================================
 # GEOMETRY
