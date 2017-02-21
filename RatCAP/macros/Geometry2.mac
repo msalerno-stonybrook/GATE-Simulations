@@ -1,0 +1,111 @@
+#
+#     W O R L D
+#
+/gate/geometry/setMaterialDatabase ./GateMaterials.db
+
+/gate/world/geometry/setXLength       10. cm
+/gate/world/geometry/setYLength       10. cm
+/gate/world/geometry/setZLength       10. cm
+
+#-------------------oooooOOOOO00000OOOOOooooo---------------------#
+#                                                                 #
+#     D E F I N I T I O N   A N D   D E S C R I T I O N           #
+#        O F   Y O U R   P E T   D E V I C E                      #
+#                                                                 #
+#-------------------oooooOOOOO00000OOOOOooooo---------------------#
+#-----------------------------------------------------------------------------------------------
+# SYSTEM --> DEFINE A PET SYSTEM : cylindrycalPET or ecat ??? (IF YOU PLAN TO USE ET SINOGRAM OUTPUT)
+#-----------------------------------------------------------------------------------------------
+/gate/world/daughters/name 				cylindricalPET
+/gate/world/daughters/insert 				cylinder
+/gate/cylindricalPET/placement/setTranslation 		0 0 0 mm
+/gate/cylindricalPET/placement/alignToZ
+/gate/cylindricalPET/geometry/setRmax 			25 mm
+/gate/cylindricalPET/geometry/setRmin 			19 mm
+/gate/cylindricalPET/geometry/setHeight 		18 mm
+
+# CHOOSE A MATERIAL
+/gate/cylindricalPET/setMaterial                        Water
+/gate/cylindricalPET/vis/forceWireframe
+/gate/cylindricalPET/vis/setColor                       red
+#------------------------------------------------------------------------------------------------
+#	FIRST LEVEL OF THE SYSTEM: BLOCK
+#-----------------------------------------------------------------------------------------------
+/gate/cylindricalPET/daughters/name 			rsector
+/gate/cylindricalPET/daughters/insert 			box
+/gate/rsector/placement/setTranslation 		        23 0 0 mm
+/gate/rsector/geometry/setXLength 			8. mm
+/gate/rsector/geometry/setYLength 			9.676 mm
+/gate/rsector/geometry/setZLength 			18 mm
+
+# CHOOSE A MATERIAL
+/gate/rsector/setMaterial               		Air
+/gate/rsector/vis/forceWireframe
+/gate/rsector/vis/setColor              		green
+#------------------------------------------------------------------------------------------------
+#	SECOND LEVEL OF THE SYSTEM: Module
+#------------------------------------------------------------------------------------------------
+/gate/rsector/daughters/name 				module
+/gate/rsector/daughters/insert 				box
+/gate/module/placement/setTranslation 			0 0 0 mm
+/gate/module/geometry/setXLength 			8. mm
+/gate/module/geometry/setYLength 			9.676 mm
+/gate/module/geometry/setZLength 			19.276 mm
+
+# CHOOSE A MATERIAL
+/gate/module/setMaterial                  		Air
+/gate/module/vis/setColor                 		blue
+/gate/module/vis/forceWireframe
+#------------------------------------------------------------------------------------------------
+#	THIRD LEVEL OF THE SYSTEM: C R Y S T A L
+#------------------------------------------------------------------------------------------------
+/gate/module/daughters/name 				crystal
+/gate/module/daughters/insert 				box
+#/gate/crystal/placement/setTranslation 			0 0 0 mm
+/gate/crystal/geometry/setXLength 			8. mm
+/gate/crystal/geometry/setYLength          		2.324 mm
+/gate/crystal/geometry/setZLength          		2.324 mm
+
+# CHOOSE A MATERIAL
+/gate/crystal/setMaterial                  		Water
+/gate/crystal/vis/setColor                 		red
+/gate/crystal/vis/forceWireframe
+#------------------------------------------------------------------------------------------------
+#      Layer
+#------------------------------------------------------------------------------------------------
+/gate/crystal/daughters/name 				LSO
+/gate/crystal/daughters/insert 				box
+/gate/LSO/placement/setTranslation 			0 0 0 mm
+/gate/LSO/geometry/setXLength 				8. mm
+/gate/LSO/geometry/setYLength 				2.324 mm
+/gate/LSO/geometry/setZLength 				2.324 mm
+/gate/LSO/setMaterial 					LSO
+#------------------------------------------------------------------------------------------------
+#      R E P E A T    C R Y S T A L
+/gate/crystal/repeaters/insert 				cubicArray
+/gate/crystal/cubicArray/setRepeatNumberX 		1
+/gate/crystal/cubicArray/setRepeatNumberY 		4
+/gate/crystal/cubicArray/setRepeatNumberZ 		8
+/gate/crystal/cubicArray/setRepeatVector 		0.0 2.4 2.4 mm
+
+#       R E P E A T    M O D U L E
+/gate/module/repeaters/insert 				linear
+/gate/module/linear/setRepeatNumber 			1
+/gate/module/linear/setRepeatVector 			0. 0. 0. mm
+
+#	R E P E A T    R S E C T O R 
+/gate/rsector/repeaters/insert 				ring
+/gate/rsector/ring/setRepeatNumber 			12
+
+#	A T T A C H    S Y S T E M 
+/gate/systems/cylindricalPET/rsector/attach 		rsector
+/gate/systems/cylindricalPET/module/attach 		module
+/gate/systems/cylindricalPET/crystal/attach 		crystal
+/gate/systems/cylindricalPET/layer0/attach 		LSO
+
+#	A T T A C H    C R Y S T A L  SD
+/gate/LSO/attachCrystalSD
+/vis/viewer/zoom 2
+# VERBOSITY ON THE SYSTEM
+/gate/systems/cylindricalPET/describe
+#------------------------------------------------------------------------------------------------
