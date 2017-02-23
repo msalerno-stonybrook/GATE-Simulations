@@ -3,6 +3,8 @@
 
 /gate/world/daughters/name hof_brain
 /gate/world/daughters/insert ImageRegularParametrisedVolume
+#/gate/world/daughters/insert ImageNestedParametrisedVolume
+#/gate/world/daughters/insert ImageRegionalizedVolume # Does not work
 /gate/hof_brain/geometry/setImage ./phantom/brain_phantom.h33
 /gate/hof_brain/geometry/setRangeToMaterialFile ./phantom/attenuation_range.dat
 /gate/hof_brain/placement/setTranslation 0. 0. 0. mm

@@ -77,8 +77,8 @@
 #   A C Q U I S I T I O N   S E T T I N G S   
 #=====================================================
 
-/gate/application/setTimeSlice   25 s
+/gate/application/setTimeSlice   3 s
 /gate/application/setTimeStart   0 s
-/gate/application/setTimeStop    25 s
+/gate/application/setTimeStop    3 s
 
 /gate/application/startDAQ
